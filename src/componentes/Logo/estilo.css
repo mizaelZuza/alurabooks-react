@@ -1,0 +1,14 @@
+.App-logo {
+    display: flex;
+
+    align-items: center;
+}
+
+.logo-img{
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.logo-texto{
+    font-size: 30px;
+}
