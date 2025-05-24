@@ -1,13 +1,16 @@
 import styled from "styled-components"
 import Input from "../Input"
+import { useState } from "react"
+import { listaDeLivros } from "./listaPesquisa"
 
 const PesquisaContainer = styled.section`
-        background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);
+        /*background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);*/
         color: #FFF;
         text-align: center;
-        padding: 85px 0;
-        height: 270px;
-        width: 100%;
+        padding: 50px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 `
 
 const Titulo = styled.h2`
@@ -23,12 +26,68 @@ const Subtitulo = styled.h3`
         margin-bottom: 40px;
 `
 
+const ResultadoDaPesquisa = styled.div`
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+
+    overflow-x: auto;
+    max-width: 85%;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    &::-webkit-scrollbar{
+        height: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #002F52;
+        border-radius: 20px;
+    }
+    
+`
+const Div = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+
+`
+
+const P = styled.p`
+    margin: 0;
+`
+
 function Pesquisa() {
+    const [busca, setBusca] = useState([]);
+
     return (
         <PesquisaContainer>
             <Titulo>Já sabe por onde começar?</Titulo>
             <Subtitulo>Encontre seu livro em nossa estante.</Subtitulo>
-            <Input placeholder="Digite sua busca!" />
+            <Input
+                placeholder="Digite sua busca!"
+                onBlur={(e) => {
+                    const campoDeBusca = e.target.value;
+                    setBusca(listaDeLivros.filter(livro =>
+                        livro.titulo.includes(campoDeBusca)
+                    ))
+                }}
+            />
+
+            <ResultadoDaPesquisa >
+                {busca.map(livro => (
+                    <Div>
+                        <img src={livro.imagem} alt={livro.titulo} />
+                        <P>{livro.titulo}</P>
+                        <P>{livro.autor}</P>
+                    </Div>
+                ))}
+            </ResultadoDaPesquisa>
+
         </PesquisaContainer>
     )
 }
