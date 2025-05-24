@@ -1,14 +1,27 @@
-import './estilo.css';
+import styled from "styled-components";
 const opcoes = ['Categorias', 'Favoritos', 'Minha Estante']
-function OpcoesHeader(){
+
+const Opcoes = styled.ul`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+`
+const Opcao = styled.li`
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+`
+
+function OpcoesHeader() {
     return (
-        <ul className='opcoes'>
+        <Opcoes>
             {
-                opcoes.map((opcao)=> {
-                    return <li className='opcoes-item'>{opcao}</li>
+                opcoes.map((opcao) => {
+                    return <Opcao>{opcao}</Opcao>
                 })
             }
-        </ul>
+        </Opcoes>
     );
 }
 
