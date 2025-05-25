@@ -1,4 +1,4 @@
-##Título:## Aplicativo de Pesquisa de Livros
+#Título:# Aplicativo de Pesquisa de Livros
 
 *Descrição:* Este é um aplicativo web que permite aos usuários pesquisar e visualizar informações sobre livros. 
 O aplicativo foi desenvolvido usando React e pode ser utilizado para consumo de dados providos por uma API.
