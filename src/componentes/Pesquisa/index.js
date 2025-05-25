@@ -4,13 +4,16 @@ import { useState } from "react"
 import { listaDeLivros } from "./listaPesquisa"
 
 const PesquisaContainer = styled.section`
-        /*background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);*/
-        color: #FFF;
-        text-align: center;
-        padding: 50px 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    backgrund-image: linear-gradient(90deg, #002F52 35%, #326589);
+    color: #FFF;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    
 `
 
 const Titulo = styled.h2`
@@ -27,16 +30,18 @@ const Subtitulo = styled.h3`
 `
 
 const ResultadoDaPesquisa = styled.div`
-    margin: 20px 0;
+    margin: 20px 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 5px;
     padding: 10px;
+    height: 400px;
+    max-width: 1000px;
 
     overflow-x: auto;
-    max-width: 85%;
+
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     &::-webkit-scrollbar{
@@ -72,6 +77,9 @@ function Pesquisa() {
                 placeholder="Digite sua busca!"
                 onBlur={(e) => {
                     const campoDeBusca = e.target.value;
+                    if (campoDeBusca === "") {
+                        return setBusca([])
+                    }
                     setBusca(listaDeLivros.filter(livro =>
                         livro.titulo.includes(campoDeBusca)
                     ))
