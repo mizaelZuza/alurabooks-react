@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Input from "../Input"
-import { useState } from "react"
-import { listaDeLivros } from "./listaPesquisa"
+import { useEffect, useState } from "react"
+import { listarLivros } from "../../servicos/livros"
 
 const PesquisaContainer = styled.section`
     backgrund-image: linear-gradient(90deg, #002F52 35%, #326589);
@@ -68,6 +68,16 @@ const P = styled.p`
 
 function Pesquisa() {
     const [busca, setBusca] = useState([]);
+    const [livros, setLivros] = useState([]);
+
+    async function fetchLivros(){
+        const livrosDaAPI = await listarLivros()
+        setLivros(livrosDaAPI)
+    }
+
+    useEffect(() => {
+        fetchLivros()
+    }, [])
 
     return (
         <PesquisaContainer>
@@ -80,8 +90,8 @@ function Pesquisa() {
                     if (campoDeBusca === "") {
                         return setBusca([])
                     }
-                    setBusca(listaDeLivros.filter(livro =>
-                        livro.titulo.includes(campoDeBusca)
+                    setBusca(livros.filter(livro =>
+                        livro.nome.includes(campoDeBusca)
                     ))
                 }}
             />
@@ -89,8 +99,8 @@ function Pesquisa() {
             <ResultadoDaPesquisa >
                 {busca.map(livro => (
                     <Div>
-                        <img src={livro.imagem} alt={livro.titulo} />
-                        <P>{livro.titulo}</P>
+                        <img src={livro.imagem} alt={livro.nome} />
+                        <P>{livro.nome}</P>
                         <P>{livro.autor}</P>
                     </Div>
                 ))}
